@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 
 function passwordGen(length, exclusion, characters) {
     var password = ""
-    length = 16;
+    console.log(length)
     characters = characters.replace(exclusion, '');
     for(var i = 0; i < length; i++) {
         var index = Math.floor(Math.random() * (characters.length - 0) + 0);
@@ -25,9 +25,23 @@ class PasswordGeneration extends React.Component {
         this.changeLength = this.changeLength.bind(this);
     }
 
-    changeLength() {
-        this.setState({length: 10});
+    changeLength = (e) => {
+        this.setState({
+          length: e.target.value
+        })
     }
+
+    genPass = () => {
+        this.setState({
+          password: passwordGen(this.state.length, this.state.exclusion, this.state.characters)
+        })
+      }
+
+      changeExclusions = (e) => {
+        this.setState({
+          exclusion: e.target.value
+        })
+      }
 
     render() {
       return (
@@ -43,9 +57,9 @@ class PasswordGeneration extends React.Component {
                         step = {1}
                         min = {1}
                         max = {20}
+                        value = {this.state.length}
                         aria-labelledby="input-slider"
                         valueLabelDisplay="auto"
-                        value = {this.state.length}
                         onChange = {this.changeLength}
                     />
                 </Grid>
@@ -56,14 +70,13 @@ class PasswordGeneration extends React.Component {
             <h3>Words to exclude</h3>
             <Grid container spacing={1}>
                 <Grid item xs>
-                    <input type = "text" placeholder = "Enter Words e.g. *,A,b etc."/>
+                    <input type = "text" onChange = {this.changeExclusions} placeholder = "Enter Words e.g. *,A,b etc."/>
                 </Grid>
             </Grid>
-            <button>Generate Password</button>
+            <button onClick = {this.genPass}>Generate Password</button>
             <Grid container spacing={1}>
                 <Grid item xs>
                     <h1>{this.state.password}</h1>
-                    <h1>{passwordGen(this.state.length, this.state.exclusion, this.state.characters)}</h1>
                 </Grid>
             </Grid>
         </div>
