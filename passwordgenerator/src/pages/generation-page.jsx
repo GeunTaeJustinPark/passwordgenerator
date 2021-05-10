@@ -47,21 +47,13 @@ class PasswordGeneration extends React.Component {
       return (
         <div>
             <h1>Password Generator</h1>
-            <h3>Length: 1-20</h3>
+            <h3>Length: {this.state.length}</h3>
             <Grid container spacing={2}>
                 <Grid item>
                     1
                 </Grid>
                 <Grid item xs>
-                    <Slider
-                        step = {1}
-                        min = {1}
-                        max = {20}
-                        value = {this.state.length}
-                        aria-labelledby="input-slider"
-                        valueLabelDisplay="auto"
-                        onChange = {this.changeLength}
-                    />
+                    <input type="range" className="custom-range" id="customRange1" min = {1} max = {20} value = {this.state.length} onChange = {this.changeLength}/>
                 </Grid>
                 <Grid item>
                     20
